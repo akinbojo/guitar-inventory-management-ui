@@ -1,1 +1,0 @@
-# guitar-inventory-management-ui
