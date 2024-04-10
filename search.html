@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Guitars</title>
+    <style>
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+            margin: 30px;
+        }
+
+        table td, th {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search Guitars</h2>
+    <label>Model:</label>
+    <input id="model" />
+    <button onclick="searchGuitars()">Search</button>
+    <br />
+    <table>
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Model</th>
+                <th>Builder</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Back Wood</th>
+                <th>Top Wood</th>
+            </tr>
+        </thead>
+        <tbody id="result">
+            <!-- Results will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+
+let guitars = [
+    {serialNumber: 'SN1', price: '1500', builder: 'Fender', type: 'Electric', model: 'Stratocaster', backWood: 'Alder', topWood: 'Alder'},
+    {serialNumber: 'SN2', price: '1200', builder: 'Gibson', type: 'Acoustic', model: 'J45', backWood: 'Mahogany', topWood: 'Spruce'},
+    {serialNumber: 'SN3', price: '2000', builder: 'Martin', type: 'Acoustic', model: 'D28', backWood: 'Rosewood', topWood: 'Spruce'},
+    {serialNumber: 'SN4', price: '1000', builder: 'PRS', type: 'Electric', model: 'Custom 24', backWood: 'Maple', topWood: 'Maple'},
+    {serialNumber: 'SN5', price: '3000', builder: 'Taylor', type: 'Acoustic', model: '814ce', backWood: 'Rosewood', topWood: 'Spruce'}
+];
+
+        function searchGuitars() {
+    const model = document.getElementById("model").value.toLowerCase();
+    const table = document.getElementById("result");
+    table.innerHTML = ""; // Clear existing results
+
+    for (let guitar of guitars) {
+        if (!model || guitar.model.toLowerCase().includes(model)) {
+            let row = table.insertRow();
+            row.insertCell(0).textContent = guitar.serialNumber;
+            row.insertCell(1).textContent = guitar.model;
+            row.insertCell(2).textContent = guitar.builder;
+            row.insertCell(3).textContent = guitar.type;
+            row.insertCell(4).textContent = guitar.price;
+            row.insertCell(5).textContent = guitar.backWood;
+            row.insertCell(6).textContent = guitar.topWood;
+        }
+    }
+}
+    </script>
+</body>
+</html>
