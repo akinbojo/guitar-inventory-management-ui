@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Guitars</title>
+    <style>
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+            margin: 30px;
+        }
+
+        table td, th {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Search Guitars</h2>
+    <label>Model:</label>
+    <input id="model" />
+    <button onclick="searchGuitars()">Search</button>
+    <br />
+    <table>
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Model</th>
+                <th>Builder</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>Back Wood</th>
+                <th>Top Wood</th>
+            </tr>
+        </thead>
+        <tbody id="result">
+            <!-- Results will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+    let host = "https://guitar-inventory-management-latest-ttmy.onrender.com";
+    async function searchGuitars() {
+      let model = document.getElementById("model").value;
+      let table = document.getElementById("result");
+      table.innerHTML = "";
+
+      let url = host + "/guitars/search";
+        if (model) {
+         url += "?model=" + model;
+        }
+      let response = await fetch(url);
+      if (response.ok) {
+        let guitars = await response.json();
+        for (let guitar of guitars) {
+          let row = document.createElement("tr");
+          let cell1 = document.createElement("td");
+          let serialNumber = document.createTextNode(guitar.serialNumber);
+          cell1.appendChild(serialNumber);
+          row.appendChild(cell1);
+          let cell2 = document.createElement("td");
+          let model = document.createTextNode(guitar.model);
+          cell2.appendChild(model);
+          row.appendChild(cell2);
+          let cell3 = document.createElement("td");
+          let builder = document.createTextNode(guitar.builder);
+          cell3.appendChild(builder);
+          row.appendChild(cell3);
+          let cell4 = document.createElement("td");
+          let type = document.createTextNode(guitar.type);
+          cell4.appendChild(type);
+          row.appendChild(cell4);
+          let cell5 = document.createElement("td");
+          let price = document.createTextNode(guitar.price);
+          cell5.appendChild(price);
+          row.appendChild(cell5);
+          let cell6 = document.createElement("td");
+          let backWood = document.createTextNode(guitar.backWood);
+          cell6.appendChild(backWood);
+          row.appendChild(cell6);
+          let cell7 = document.createElement("td");
+          let topWood = document.createTextNode(guitar.topWood);
+          cell7.appendChild(topWood);
+          row.appendChild(cell7);
+          table.appendChild(row);
+        }
+      } else {
+        alert("Something went wrong. Please try again or contact the customer support team.");
+      }
+    }
+    </script>
+</body>
+</html>
